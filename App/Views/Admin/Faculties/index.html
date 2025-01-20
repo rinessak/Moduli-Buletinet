@@ -1,0 +1,75 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %}Moduli Buletinet | Fakultetet{% endblock %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <!-- DataTables Example -->
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div>
+                            <h6 class="m-0 font-weight-bold text-primary">Fakultetet</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-start">
+                            <a href="/admin/faculty-create"><i class="fa-solid fa-plus"></i> Shto Fakultet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>Emri i Fakultetit</th>
+                                <th>Përditëso</th>
+                                <th>Fshij</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for faculty in faculties %}
+                            <tr>
+                                <td>{{ faculty.name }}</td>
+                                <td><a href="/admin/faculty-edit?id={{faculty.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="/admin/faculty-delete?id={{faculty.id}}" class="delete-faculty text-danger"><i class="fas fa-trash"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block js %}
+    <script>
+        // Attach a click companyLocation listener to delete links
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteLinks = document.querySelectorAll('.delete-faculty');
+            
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent the default link behavior
+                    
+                    const confirmation = confirm('Jeni të sigurt që dëshironi ta fshini këtë fakultet');
+                    
+                    if (confirmation) {
+                        // If the user confirms, redirect to the delete link's href
+                        window.location.href = this.href;
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
+

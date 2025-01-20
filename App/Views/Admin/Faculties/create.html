@@ -1,0 +1,28 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %}Shtoni Fakultet{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-lg border-0 rounded-lg mt-3">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-2">Shto Fakultet</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/faculty-store">
+                            <div class="form-group">
+                                <label class="small mb-1">Emri i Fakultetit: </label>
+                                <input class="form-control py-4" name="name" type="text" placeholder="Shkruani emrin e fakultetit"/>
+                            </div>
+                            <input class="btn btn-primary" id="login" value="Shto" type="submit"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %}Përditëso Pozitën{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-2">Modifiko Pozitën</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/position-update">
+                            <div class="form-group">
+                                <label class="small mb-1" for="faculties">Fakulteti</label>
+                                <select class="form-control" name="faculty_id" id="faculties" required>
+                                    <option value="">Përditëso Fakultetin</option>
+                                    {% for faculty in faculties %}
+                                        <option value="{{ faculty.id }}" {% if position.faculty_id == faculty.id %}selected{% endif %}>{{ faculty.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>        
+                            <div class="form-group">
+                                <input type="hidden" value="{{ position.id }}" name="id">
+                                <label class="small mb-1">Pozita:</label>
+                                <input class="form-control py-4" name="position" value="{{ position.position }}" 
+                                type="text" placeholder="Shkruani pozitën"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" value="{{ position.id }}" name="id">
+                                <label class="small mb-1">Përshkrimi: </label>
+                                <textarea class="form-control py-4" name="description" 
+                                placeholder="Shkruani përshkrimin e pozitës">{{ position.description }}</textarea>
+                            </div>
+                            <input class="btn btn-primary" value="Modifiko" type="submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

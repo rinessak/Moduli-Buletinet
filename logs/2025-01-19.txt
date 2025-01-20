@@ -1,0 +1,35 @@
+[19-Jan-2025 18:32:28 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('favicon.ico')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 18:32:28 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('favicon.ico')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 19:51:32 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('login/bulletins')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 19:51:47 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('agmin')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 19:54:48 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('login')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 19:54:50 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('login')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128
+[19-Jan-2025 19:54:55 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\pdfUpload\public\route.php(57): Core\Router->dispatch('login')
+#1 C:\laragon\www\pdfUpload\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\pdfUpload\Core\Router.php' on line 128

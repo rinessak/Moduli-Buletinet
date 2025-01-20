@@ -1,0 +1,10 @@
+[20-Jan-2025 10:04:16 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\ModuliBuletinet\public\route.php(57): Core\Router->dispatch('favicon.ico')
+#1 C:\laragon\www\ModuliBuletinet\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\ModuliBuletinet\Core\Router.php' on line 128
+[20-Jan-2025 20:32:08 UTC] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 C:\laragon\www\ModuliBuletinet\public\route.php(57): Core\Router->dispatch('favicon.ico')
+#1 C:\laragon\www\ModuliBuletinet\public\index.php(21): require('C:\\laragon\\www\\...')
+#2 {main}
+Thrown in 'C:\laragon\www\ModuliBuletinet\Core\Router.php' on line 128

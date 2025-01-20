@@ -1,0 +1,90 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %}Modifiko Buletinin{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-2">Modifiko Buletinin</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/bulletin-update">
+                            <div class="form-group">
+                                <label class="small mb-1" for="faculties">Fakulteti</label>
+                                <select class="form-control" name="faculty_id" id="faculties" required>
+                                    <option value="">Zgjedhni një fakultet</option>
+                                    {% for faculty in faculties %}
+                                        <option value="{{ faculty.id }}" {% if bulletin.faculty_id == faculty.id %}selected{% endif %}>{{ faculty.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>        
+                            <div class="form-group">
+                                <label class="small mb-1" for="positions">Pozita</label>
+                                <select class="form-control" name="position_id" id="positions" required>
+                                    <option value="">Zgjedhni një pozitë</option>
+                                    {% for position in positions %}
+                                        <option value="{{ position.id }}" {% if bulletin.position_id == position.id %}selected{% endif %}>{{ position.position }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                            <div class="form-group">
+                                <input type="hidden" value="{{ bulletin.id }}" name="id">
+                                <label class="small mb-1">Titulli i Buletinit: </label>
+                                <input class="form-control py-4" name="bulletin_title" value="{{ bulletin.bulletin_title }}" 
+                                type="text" placeholder="Shkruani titullin e buletinit"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" value="{{ bulletin.id }}" name="id">
+                                <label class="small mb-1">Path-i i file-it të buletinit ekzistues:</label>
+                                <input 
+                                    class="form-control py-4" 
+                                    name="pdf_file_path" 
+                                    value="{{ bulletin.pdf_file_path }}" 
+                                    type="text" 
+                                    readonly 
+                                />
+                                <small class="form-text text-muted">
+                                    Nëse dëshironi të publikoni një file të buletinit të përditësuar(korrigjuar), ju lutem shtoni një buletin të ri që në fillim. 
+                                    <a href="/admin/bulletin-create">Shtoni një buletin të ri</a>
+                                </small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="hidden" value="{{ bulletin.id }}" name="id">
+                                <label class="small mb-1">Përshkrimi: </label>
+                                <textarea class="form-control py-4" name="description" 
+                                    placeholder="Shkruani përshkrimin e buletinit">{{ bulletin.description }}
+                                </textarea>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="small mb-1 d-block">Active:</label>
+                                <input 
+                                    type="checkbox" 
+                                    name="is_active" 
+                                    value="1" 
+                                    {% if bulletin.is_active %}checked{% endif %} 
+                                />
+                                <label for="is_active">Mark as Active</label>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="small mb-1">Publikuar më: </label>
+                                <input class="form-control py-4" name="published_at" value="{{ bulletin.published_at|date('Y-m-d H:i:s') }}" type="datetime-local" placeholder="Enter published date"/>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="small mb-1">Updated at: </label>
+                                <input class="form-control py-4" name="updated_at" value="{{ bulletin.updated_at|date('Y-m-d H:i:s') }}" type="datetime-local" placeholder="Enter published date" readonly/>
+                            </div>  -->
+                            <input class="btn btn-primary" value="Modifiko" type="submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

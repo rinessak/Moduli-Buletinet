@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="university bulletins, faculties, published at, view, download">
+    <meta name="description" content="View and download active university bulletins from all faculties.">
+    <meta name="author" content="RinesaK">
+    <title>University Bulletins</title>
+    <!-- <link  href="/public/css/ui-style.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER SECTION START -->
+
+    <header>
+        <div class="container-fluid sticky-top shadow bg-white">
+            <div class="col-md-12 col-sm-12">
+                <div class="d-flex justify-content-center px-4">
+                    <div class="logo">
+                        <img src="images/logo.jpg" alt="Univeristy logo" class="px-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HEADER SECTION END -->
+
+    
+
+    <!-- BULLETINS SECTION START -->
+    
+    <section>
+        <div class="container mt-4">
+            <h1 class="text-center mb-4 fs-2">Moduli i Buletineve të Universitetit</h1>
+            <div class="container">
+                {% if bulletins|length > 0 %}
+                <div class="message">
+                    <p id="messageForCandidats" class="fw-bold text-primary text-center p-2">
+                        Buletinet do të qëndrojnë të publikuara në web faqen të Universitetit në kohëzgjatje prej pesëmbëdhjetë (15) ditëve nga dita e publikimit. 
+                        Gjatë fazës së publikimit të raporteve të komisioneve vlerësuese në Buletine, kandidatët e pakënaqur kanë të drejtë të parashtrojnë ankesë në 
+                        Këshillin e Fakultetit përkatës. Ankesat eventuale të kandidatëve duhet të dorëzohen në administratën e Fakultetit.
+                    </p>
+                </div>
+                <div class="container bulletins px-4">
+                    <div id="bulletins" class="mt-4 px-5">
+                        {% for bulletin in bulletins %}
+                        <div class="card mb-3 shadow">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="text-uppercase fw-bold">Buletini - </span>{{ bulletin.bulletin_title }}</h5>
+                                <p class="card-text mb-0"><span class="fw-bold">Fakulteti: </span> {{ bulletin.faculty.name }}</p>
+                                <p class="card-text mb-0"><span class="fw-bold">Publikuar më: </span> {{ bulletin.published_at |date("d/m/Y")}}</p>
+                                {% if bulletin.description is not empty %}
+                                <p class="card-text fw-bold"> {{ bulletin.description }}</p>
+                                {% endif %}
+                                <div class="d-flex justify-content-end">
+                                    <a href="/bulletin-view?file_id={{ bulletin.id }}" target="_blank">
+                                        <button class="btn btn-primary me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-view-list" viewBox="0 0 16 16">
+                                                <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2m0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14"/>
+                                            </svg>
+                                            Shihni 
+                                        </button>
+                                    </a>
+                                    <a href="/bulletin-download?file_id={{ bulletin.id }} " download target="_blank">
+                                        <button class="btn btn-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                                            </svg>
+                                            Shkarkoni 
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>                    
+                        {% endfor %}
+                        {% else %}
+                        <div class="noActiveBulletinMessage">
+                            <h3 class="text-danger text-center fs-5">Mirësevini në  web faqen për buletinet e universiteti. Momentalisht nuk ka asnjë buletin aktiv. </h3>
+                        </div>   
+                        {% endif %}
+                 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BULLETINS SECTION END -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('faculty').addEventListener('change', function () {
+            const facultyId = this.value; 
+
+            const bulletinDropdown = document.getElementById('bulletin');
+            bulletinDropdown.innerHTML = '<option value="">Choose a bulletin</option>';
+
+            if (!facultyId) {
+                return;
+            }
+            fetch(`/admin/bulletins/filter-by-faculty?faculty_id=${facultyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        bulletinDropdown.innerHTML = '<option value="">No active bulletins available</option>';
+                        return;
+                    }
+
+                    data.forEach(bulletin => {
+                        const option = document.createElement('option');
+                        option.value = bulletin.id;
+                        option.textContent = bulletin.bulletin_title;
+                        bulletinDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching bulletins:', error);
+                });
+        });
+    </script>
+</body>
+</html>

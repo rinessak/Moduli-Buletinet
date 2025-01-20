@@ -1,0 +1,134 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %}Moduli Buletinet | Buletinet{% endblock %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- DataTables Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div>
+                            <h6 class="m-0 font-weight-bold text-primary">Buletinet</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-start">
+                            <a href="/admin/bulletin-create"><i class="fa-solid fa-plus"></i> Shto Buletin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="filters d-flex justify-content-end">
+                    <div class="text m-2 p-2">
+                        <p id="filterText">Filtro Buletinet Duke Zgjedhur Fakultetin dhe/ose Vitin e Publikimit</p>
+                    </div>
+                    <div class="facultyFilter m-2">
+                        <select class="form-control border border-primary" id="facultyFilter">
+                            <option value="">Të gjitha fakultetet </option>
+                            {% for faculty in faculties %}
+                            <option value="{{ faculty.id }}">{{ faculty.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="yearFilter m-2">
+                        <select class="form-control border border-primary" id="yearFilter">
+                            <option value="">Të gjitha vitet</option>
+                            {% for year in range(2000, currentYear) %}
+                            <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>                
+                
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>Pozita, Fakulteti</th>
+                                <th>Titulli i Buletinit</th>
+                                <th>Shihni Buletinin - Path-i i file-it</th>
+                                <th>Përshkrimi</th>
+                                <th>Publikuar më</th>
+                                <th>Përditësuar më</th>
+                                <th>Modifiko</th>
+                                <th>Fshij</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bulletinsTable">
+                            {% for bulletin in bulletins %}
+                            <tr data-faculty="{{ bulletin.faculty_id }}" data-year="{{ bulletin.published_at|date('Y') }}">
+                                <td>{{ bulletin.position.position }}, {{ bulletin.position.faculty.name }}</td>
+                                <td>{{ bulletin.bulletin_title }}</td>
+                                <td><a href="/bulletin-view?file_id={{ bulletin.id }}" target="_blank">{{ bulletin.pdf_file_path }}</a></td>
+                                <td>{{ bulletin.description }}</td>
+                                <td>{{ bulletin.published_at|date('d/m/Y') }}</td>
+                                <td>{{ bulletin.updated_at|date('d/m/Y') }}</td>
+                                <td><a href="/admin/bulletin-edit?id={{ bulletin.id }}"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="/admin/bulletin-delete?id={{ bulletin.id }}" class="delete-bulletin"><i class="fas fa-trash text-danger"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteLinks = document.querySelectorAll('.delete-bulletin');
+            
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const confirmation = confirm('Jeni të sigurt që dëshironi ta fshini këtë buletin?');
+                    
+                    if (confirmation) {
+                        window.location.href = this.href;
+                    }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const facultyFilter = document.getElementById("facultyFilter");
+            const yearFilter = document.getElementById("yearFilter");
+            const bulletinsTable = document.getElementById("bulletinsTable");
+            const rows = bulletinsTable.querySelectorAll("tr");
+
+            function filterData() {
+                const faculty = facultyFilter.value;
+                const year = yearFilter.value;
+
+                rows.forEach(row => {
+                    const rowFaculty = row.dataset.faculty;
+                    const rowYear = row.dataset.year;
+
+                    const matchesFaculty = !faculty || rowFaculty === faculty;
+                    const matchesYear = !year || rowYear === year;
+
+                    if (matchesFaculty && matchesYear) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            }
+
+            facultyFilter.addEventListener("change", filterData);
+            yearFilter.addEventListener("change", filterData);
+        });
+
+    </script>
+
+{% endblock %}
+

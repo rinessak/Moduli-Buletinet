@@ -1,0 +1,12 @@
+body{
+    color: #03396c;
+    font-weight: 500;
+}
+.view-bulletin{
+    background-color: #03396c;
+    color: #fff;
+    border: none;
+}
+/* .noActiveBulletinMessage{
+    color: dodgerblue;
+} */

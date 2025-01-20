@@ -1,0 +1,33 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+{% block title %} Përditëso Fakultetin {% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-lg border-0 rounded-lg mt-3">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-2">Modifiko Fakultetin</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/faculty-update">
+                            <div class="form-group">
+                                <input type="hidden" value="{{ faculty.id }}" name="id">
+                                <label class="small mb-1" >Emri i fakultetit: </label>
+                                <input class="form-control py-4" name="name" type="text" value="{{ faculty.name }}" 
+                                placeholder="Enter service" />
+                            </div>
+                            <input class="btn btn-primary"  id="login" value="Modifiko" type="submit"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "/Admin/layout/adminLayout.html" %}
+
+{% block title %} Përditëso Përdorues {% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-lg border-0 rounded-lg mt-3">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-2">Modifiko Përdorues</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/user-update">
+                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <div class="form-group">
+                                <label class="small mb-1" >Emri i plotë: </label>
+                                <input class="form-control py-4" name="fullname"type="text" value="{{ user.fullname }}" placeholder="Shkruani emrin e plotë" />
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" >Email-i: </label>
+                                <input class="form-control py-4" value="{{ user.email }}" name="email" type="text" placeholder="Shkruani email-in "/>
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1">Fjalëkalimi :</label>
+                                <input class="form-control py-4" value="{{ user.password }}" name="password" type="text" placeholder="Shkruani fjalëkalimin"/>
+                            </div>  
+                            <input class="btn btn-primary"  id="update" value="Modifiko" type="submit"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+
+
+{% endblock %}
