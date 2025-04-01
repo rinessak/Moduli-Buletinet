@@ -4,5 +4,6 @@
 
  twig documentation https://twig.symfony.com/ 
 
+Explore my work directly through my online portfolio:
 
-<img src="mvc.png"/>
+**[View Bultetin Module Project](http://modulibuletinet.kesug.com/)** 
